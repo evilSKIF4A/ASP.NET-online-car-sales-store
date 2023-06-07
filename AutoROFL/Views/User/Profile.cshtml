@@ -1,0 +1,64 @@
+﻿@using AutoROFL.ViewModels
+@model ProfileViewModel
+
+
+<div>
+    <h2 style="margin-left:500px; margin-top:70px">Личный кабинет</h2>
+    <hr>
+    <div class="row" style="margin-left:50px">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="Profile">Профиль</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="PurchaseHistory">История покупок</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="Email">Изменить Email</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="Password">Изменить пароль</a></li>
+                @*<li class="nav-item"><a class="nav-link" id="two-factor" href="/Identity/Account/Manage/TwoFactorAuthentication">Two-factor authentication</a></li>*@
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="DeleteAccount">Удалить аккаунт</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            
+            <h3>Профиль</h3>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" asp-controller="User" asp-action="EditProfile">
+                        <div class="form-floating mt-1">
+                            <input class="form-control" type="text" id="FName" name="FName" value="@Model.User.FName">
+                            <label class="form-label" for="FName">Фамилия</label>
+                        </div>
+                        <div class="form-floating mt-1">
+                            <input class="form-control" type="text" id="SName" name="SName" value="@Model.User.SName">
+                            <label class="form-label" for="SName">Имя</label>
+                        </div>
+                        <div class="form-floating mt-1">
+                            <input class="form-control" type="text" id="MName" name="MName" value="@Model.User.MName">
+                            <label class="form-label" for="MName">Отчество</label>
+                        </div>
+                        <div class="form-floating mt-1">
+                            <input class="form-control" type="date" id="Date" name="BirthDay" value="@Model.User.Year.ToString("yyyy-MM-dd")">
+                            <label class="form-label" for="Date">Дата</label>
+                        </div>
+                        <div class="form-floating mt-1">
+                            <input class="form-control" type="text" id="Adress" name="Adress" value="@Model.User.Adress">
+                            <label class="form-label" for="Adress">Адрес</label>
+                        </div>
+                        <div class="form-floating mt-1">
+                            <input class="form-control" type="tel" id="PhoneNumber" name="PhoneNumber" value="@Model.User.PhoneNumber">
+                            <label class="form-label" for="PhoneNumber">Номер телефона</label>
+                        </div>
+                        <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary mt-1">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+            @if(Model.UserRole == "2")
+            {
+                <div class="mt-2">
+                    <a class="nav-link text-blue" asp-area="" asp-controller="AdminPanel" asp-action="AdminPanelUsers">Админ панель</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

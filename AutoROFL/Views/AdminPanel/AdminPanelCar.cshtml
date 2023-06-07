@@ -1,0 +1,83 @@
+﻿@using AutoROFL.ViewModels
+@model ListCarsViewModel
+
+
+<div>
+    <h2 style="margin-left:600px; margin-top:70px">Админ панель</h2>
+    <hr>
+    <div class="row" style="margin-left:50px">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="AdminPanel" asp-action="AdminPanelUsers">Пользователи</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="AdminPanel" asp-action="AdminPanelCar">Машины</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="AdminPanel" asp-action="AdminPanelRemoteAccount">Удаленные аккаунты</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <h3 style="margin-left:150px">Машины</h3>
+            <div class="d-flex mt-2">
+                <form method="post" asp-controller="AdminPanel" asp-action="AdminPanelCar">
+                    <input type="text" name="Brand" placeholder="Поиск по бренду..." />
+                    <input type="text" name="Price" placeholder="Поиск по цене..." />
+                    <input type="submit" value="Поиск" />
+                </form>
+            </div>
+            <div class="mt-1">
+                <form method="get" asp-controller="AdminPanel" asp-action="LoadCar">
+                    <input class="nav-link text-blue" type="submit" value="Добавить автомобиль">
+                </form>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Категория</th>
+                        <th>Бренд</th>
+                        <th>Модель</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var car in Model.Cars)
+                    {
+                        <tr>
+                            <td>@car.Category</td>
+                            <td>@car.Brand</td>
+                            <td>@car.Model</td>
+                            <td class="col-md-4">
+                                <div class="d-flex">
+                                    <form method="get" asp-controller="AdminPanel" asp-action="EditInfoCar">
+                                        <button type="submit" class="btn btn-sm btn-primary me-1" name="carId" value="@car.Id">Изменить</button>
+                                    </form>
+                                    <form asp-controller="AdminPanel" asp-action="DeleteCar">
+                                        <button type="submit" class="btn btn-sm btn-danger me-1" name="carId" value="@car.Id">Удалить</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div style="margin-left:380px">
+                @if (Model.PageViewModel.HasPreviousPage)
+                {
+                    <a asp-action="AdminPanelCar"
+                        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+                        class="btn btn-outline-dark">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Назад
+                    </a>
+                }
+                @if (Model.PageViewModel.HasNextPage)
+                {
+                    <a asp-action="AdminPanelCar"
+                        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+                        class="btn btn-outline-dark">
+                        Вперед
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

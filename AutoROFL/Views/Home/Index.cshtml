@@ -1,0 +1,126 @@
+﻿@using AutoROFL.Models
+@model IEnumerable<Car>
+
+<link href="~/css/styleGreenCircle.css" rel="stylesheet" type="text/css" />
+<link href="~/css/styleRedCircle.css" rel="stylesheet" type="text/css" />
+
+<main>
+  <div id="Fortune" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#Fortune" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#Fortune" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#Fortune" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#Fortune" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#Fortune" data-bs-slide-to="4" aria-label="Slide 5"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://sales.mercedes-orenburg.ru/image/cache/catalog/data/16155526046167645-3840x1300_crop.jpg" class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <rect width="100%" height="500px" fill="#777"></rect>
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>Автомагазин AutoROFL</h1>
+            <p>Крупнейший дилер по продаже автомобилей в России!</p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://sales.mercedes-orenburg.ru/image/cache/catalog/data/15980106714531689-3840x1300_crop.jpg" class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <rect width="100%" height="500px" fill="#777"></rect>
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Добро пожаловать в зону комфорта!</h1>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://sales.mercedes-orenburg.ru/image/cache/catalog/data/16155522323597360-3840x1300_crop.jpg" class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <rect width="100%" height="500px" fill="#777"></rect>
+        <div class="container">
+          <div class="carousel-caption text-end">
+            <h1>Гарантия надежности</h1>
+            <p>Если что-то сломается, то мы не починим)</p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://sales.mercedes-orenburg.ru/image/cache/catalog/data/15910273394243504-3840x1300_crop.jpg" class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <rect width="100%" height="500px" fill="#777"></rect>
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Пристегнитесь мы взлетаем</h1>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://sales.mercedes-orenburg.ru/image/cache/catalog/data/15841045211743635-3840x1300_crop.jpg" class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <rect width="100%" height="500px" fill="#777"></rect>
+        <div class="container">
+          <div class="carousel-caption text-end">
+            <h1>Новые технологии</h1>
+            <p>Лучший материал</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#Fortune" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#Fortune" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <br />
+  <div class="container marketing">
+      <h2 style="margin-left:500px">Топ продаж</h2>
+    @{
+        foreach(Car car in Model)
+        {
+            <hr class="featurette-divider">
+            <div class="row featurette">
+                <div class="col-md-4 order-md-2">
+                    <div style="margin-left:100px"><h2 class="featurette-heading">@car.Brand @car.Model</h2></div>
+                    <div><p class="lead">@car.ShortDesc</p></div>
+                    
+                </div>
+                <div class="col-md-3 order-md-2 mt-5">
+                    <div>
+                        <h2>Цена: @car.Price</h2>
+                        <ul>
+                            @if(car.Amount != 0)
+                            {
+                                <li class="green">Есть в наличии</li>
+                            }
+                            else
+                            {
+                                <li class="red">Нет в наличии</li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="mt-5">
+                        <form method="post" asp-controller="Home" asp-action="FullInfoCar">
+                            <button class="btn btn-primary" name="carIdandIsOneBrand" value="@car.Id.ToString() true" type="submit">Подробнее »</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-5 order-md-1">
+                    <img src="@car.Img" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#eee"></rect>
+                </div>
+            </div>
+        }
+    }
+
+    <hr class="featurette-divider">
+    <footer class="container">
+        <div class="container mt-3">
+            &copy; 2022 - AutoROFL - <a asp-area="" asp-controller="Home" asp-action="Snake">Змейка</a>
+        </div>
+        <br />
+    </footer>
+
+  </div>
+
+</main>

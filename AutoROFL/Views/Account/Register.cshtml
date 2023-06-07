@@ -1,0 +1,54 @@
+﻿@model AutoROFL.ViewModels.RegisterViewModel
+
+
+<link href="https://getbootstrap.com/docs/5.1/examples/sign-in/signin.css" rel="stylesheet">
+
+<main class="form-signin text-center" style="margin-left:550px">
+  <form method="post" asp-controller="Account" asp-action="Register">
+    <div asp-validation-summary="ModelOnly"></div>
+    <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+
+
+    <div class="form-floating mt-1">
+      <input type="text" class="form-control" id="FName" asp-for="FName">
+      <label for="FName">Фамилия</label>
+      <span asp-validation-for="FName"></span>
+    </div>
+    <div class="form-floating mt-1">
+      <input type="text" class="form-control" id="SName" asp-for="SName">
+      <label for="SName">Имя</label>
+      <span asp-validation-for="SName"></span>
+    </div>
+    <div class="form-floating mt-1">
+      <input type="text" class="form-control" id="MName" asp-for="MName">
+      <label for="MName">Отчество</label>
+      <span asp-validation-for="MName"></span>
+    </div>
+    <div class="form-floating mt-1">
+      <input type="date" class="form-control" id="Date" asp-for="Year">
+      <label for="Date">Дата рождения</label>
+      <span asp-validation-for="Year"></span>
+    </div>
+    <div class="form-floating mt-1">
+      <input type="text" class="form-control" id="Adress" asp-for="Adress">
+      <label for="Adress">Адрес</label>
+      <span asp-validation-for="Adress"></span>
+    </div>
+    <div class="form-floating mt-1">
+      <input type="email" class="form-control" id="floatingInput" asp-for="Email">
+      <label for="floatingInput">Email</label>
+      <span asp-validation-for="Email"></span>
+    </div>
+    <div class="form-floating mt-1">
+      <input type="password" class="form-control" id="floatingPassword" asp-for="Password" >
+      <label for="floatingPassword">Пароль</label>
+      <span asp-validation-for="Password"></span>
+    </div>
+    <div class="form-floating ">
+      <input type="password" class="form-control" id="floatingPasswordConfirm" asp-for="PasswordConfirm" >
+      <label for="floatingPasswordConfirm">Повторите пароль</label>
+      <span asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
+  </form>
+</main>

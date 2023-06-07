@@ -1,0 +1,28 @@
+﻿@model AutoROFL.ViewModels.LoginViewModel
+
+<link href="https://getbootstrap.com/docs/5.1/examples/sign-in/signin.css" rel="stylesheet">
+
+<main class="form-signin text-center" style="margin-left:550px">
+  <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="ModelOnly"></div>
+    <h1 class="h3 mb-3 fw-normal">Вход</h1>
+
+    <div class="form-floating mt-1">
+      <input type="email" class="form-control" id="floatingInput" asp-for="Email" placeholder="name@example.com">
+      <label for="floatingInput">Email</label>
+      <span asp-validation-for="Email"></span>
+    </div>
+    <div class="form-floating mt-1">
+      <input type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password">
+      <label for="floatingPassword">Пароль</label>
+      <span asp-validation-for="Password"></span>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label asp-for="RememberMe"> Запомнить?
+        <input type="checkbox" asp-for="RememberMe"> 
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+  </form>
+</main>

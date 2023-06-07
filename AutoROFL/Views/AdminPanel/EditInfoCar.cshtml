@@ -1,0 +1,64 @@
+﻿@using AutoROFL.Models
+@model Car
+
+
+<div class="row">
+    <form method="post" asp-controller="AdminPanel" asp-action="EditInfoCar">
+        <div class="form-floating mt-1">
+            <input class="form-control" style="visibility:hidden" type="text" asp-for="Id" value="@Model.Id">
+        </div>
+        <div class="form-floating mt-1 d-flex">
+            <img src="@Model.Img" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#eee"></rect>
+            <input class="form-control" style="margin-left:5px; margin-top:100px" type="text" id="Img" asp-for="Img" value="@Model.Img">
+            <label class="form-label" style="margin-left:510px; margin-top:100px" for="Img">URL ссылка</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="Category" asp-for="Category" value="@Model.Category">
+            <label class="form-label" for="Category">Категория</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="Brand" asp-for="Brand" value="@Model.Brand">
+            <label class="form-label" for="Brand">Бренд</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="Model" asp-for="Model" value="@Model.Model">
+            <label class="form-label" for="Model">Модель</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="number" id="Amount" asp-for="Amount" value="@Model.Amount">
+            <label class="form-label" for="Amount">Количество</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="number" id="Price" asp-for="Price" value="@Model.Price">
+            <label class="form-label" for="Price">Цена</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="ShortDesc" asp-for="ShortDesc" value="@Model.ShortDesc">
+            <label class="form-label" for="ShortDesc">Короткое описание</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="LongDesc" asp-for="LongDesc" value="@Model.LongDesc">
+            <label class="form-label" for="LongDesc">Длинное описание</label>
+        </div>
+        <div class="form-floating mt-1 d-flex">
+            @if (Model.isFavorit)
+            {
+                <p>На главную страницу?  </p>
+                <p style="margin-left:5px"> Да</p>
+                <input class="me-1" type="radio" value="True" checked="checked" asp-for="isFavorit" style="margin-left:5px">
+                <p style="margin-left:5px">Нет</p>
+                <input class="me-1" type="radio" value="False" asp-for="isFavorit" style="margin-left:5px">
+            }
+            else
+            {
+                <p>На главную страницу?  </p>
+                <p style="margin-left:5px"> Да</p>
+                <input class="me-1" type="radio" value="True"  asp-for="isFavorit" style="margin-left:5px">
+                <p style="margin-left:5px">Нет</p>
+                <input class="me-1" type="radio" value="False" checked="checked" asp-for="isFavorit" style="margin-left:5px">
+            }
+        </div>
+        <button type="submit" style="margin-left:600px" class="btn btn-lg btn-primary mt-1">Сохранить</button>
+        <br />
+    </form>
+</div>

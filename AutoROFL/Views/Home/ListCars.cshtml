@@ -1,0 +1,104 @@
+﻿@using AutoROFL.ViewModels
+@model ListCarsViewModel
+
+<link href="~/css/styleGreenCircle.css" rel="stylesheet" type="text/css" />
+<link href="~/css/styleRedCircle.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        @@font-face {
+            font-family: 'FontAwesome';
+            src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), 
+            url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'), 
+            url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal
+        }
+ 
+        .glyphicon {
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
+ 
+        .glyphicon-chevron-right:before {
+            content: "\f054";
+        }
+ 
+        .glyphicon-chevron-left:before {
+            content: "\f053";
+        }
+
+        th, td {
+           border: 1px solid grey;
+        }
+    </style>
+@if (Model.Cars.Count() != 0)
+{
+    foreach (Car car in Model.Cars)
+    {
+        <hr class="featurette-divider">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <div>
+                            <img src="@car.Img" class="bd-placeholder-img" width="100%" height="300px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        </div>
+                    </td>
+                    <td class="col-md-4">
+                        <div style="margin-left: 200px"><h3>@car.Brand @car.Model</h3></div>
+                        <div class="mt-1 text-break"><p>@car.ShortDesc</p></div>
+                    </td>
+                    <td class="col-md-2">
+                        <div class="mt-5">
+                            <h2>Цена: @car.Price</h2>
+                            <ul>
+                                @if (car.Amount != 0)
+                                {
+                                    <li class="green">Есть в наличии</li>
+                                }
+                                else
+                                {
+                                    <li class="red">Нет в наличии</li>
+                                }
+                            </ul>
+                            <div class="mt-5">
+                                <form method="post" asp-controller="Home" asp-action="FullInfoCar" >
+                                    <button class="btn btn-primary" name="carIdandIsOneBrand" value="@car.Id.ToString() @Model.isOneBrand.ToString()" type="submit">Подробнее »</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
+    if (@Model.isOneBrand)
+    {
+        <div class="d-flex" style="margin-left:600px; margin-bottom:10px">
+            @if (Model.PageViewModel.HasPreviousPage)
+            {
+                <form method="post" asp-controller="Home" asp-action="ListCars" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">
+                    <button class="btn btn-outline-dark" name="brand" type="submit" value="@Model.Cars.ToList()[0].Brand"><i class="glyphicon glyphicon-chevron-left"></i> Назад</button>
+                </form>
+            }
+            @if (Model.PageViewModel.HasNextPage)
+            {
+                <form method="post" asp-controller="Home" asp-action="ListCars" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">
+                    <button class="btn btn-outline-dark" name="brand" type="submit" value="@Model.Cars.ToList()[0].Brand">Вперед <i class="glyphicon glyphicon-chevron-right"></i></button>
+                </form>
+            }
+        </div>
+    }
+
+}
+else
+{
+    <div style="margin-left:570px; margin-top:200px; margin-bottom:400px">
+        <h3>Ничего не найдено</h3>
+    </div>
+}

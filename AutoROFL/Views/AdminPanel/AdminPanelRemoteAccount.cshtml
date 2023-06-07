@@ -1,0 +1,72 @@
+﻿@using AutoROFL.Models
+@model List<RemoteAccount>
+
+
+<div>
+    <h2 style="margin-left:600px; margin-top:70px">Админ панель</h2>
+    <hr>
+    <div class="row" style="margin-left:50px">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="AdminPanel" asp-action="AdminPanelUsers">Пользователи</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="AdminPanel" asp-action="AdminPanelCar">Машины</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="AdminPanel" asp-action="AdminPanelRemoteAccount">Удаленные аккаунты</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <h3 style="margin-left:150px">Удаленные аккаунты</h3>
+            <div class="d-flex mt-2">
+                <form method="post" asp-controller="AdminPanel" asp-action="AdminPanelRemoteAccount">
+                    <input type="text" name="FName" placeholder="Поиск по фамилии..." />
+                    <input type="text" name="Email" placeholder="Поиск по почте..." />
+                    <input type="text" name="PhoneNumber" placeholder="Поиск по номеру..." />
+                    <input type="submit" value="Поиск" />
+                </form>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>Год рождения</th>
+                        <th>Адрес</th>
+                        <th>Email</th>
+                        <th>Номер телефона</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.FName</td>
+                            <td>@user.SName</td>
+                            <td>@user.MName</td>
+                            <td>@user.Year.ToShortDateString()</td>
+                            <td>@user.Adress</td>
+                            <td>@user.UserName</td>
+                            @if(!String.IsNullOrEmpty(user.PhoneNumber))
+                            {
+                                <td>@user.PhoneNumber</td>
+                            }
+                            else
+                            {
+                                <td>Не указан</td>
+                            }
+                            <td>
+                                <div class="d-flex">           
+                                    <form asp-controller="AdminPanel" asp-action="AdminPanelPurchaseHistory" method="post">
+                                        <button type="submit" class="btn btn-sm btn-primary me-1" name="userId" value="@user.userId">Покупки</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

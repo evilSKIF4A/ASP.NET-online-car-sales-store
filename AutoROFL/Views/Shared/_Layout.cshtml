@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Автомагазин - AutoROFL</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/styleGreenCircle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/styleRedCircle.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AutoROFL</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                      <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Электромобили
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="Tesla"></li>
+                                </form>
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="Audi"></li>
+                                </form>
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="Volkswagen"></li>
+                                </form>
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="GAC NE"></li>
+                                </form>
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="Nio"></li>
+                                </form>
+                          </ul>
+                        </li>
+                      </ul>
+                      <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Автомобили
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="BMW"></li>
+                                </form>
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="Mercedes-Benz"></li>
+                                </form>
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="Ford"></li>
+                                </form>
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="Mitsubishi"></li>
+                                </form>
+                                <form method="post" asp-controller="Home" asp-action="ListCars">
+                                    <li><input class="dropdown-item" name="brand" type="submit" value="Toyota"></li>
+                                </form>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="d-flex">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Search">Поиск</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Basket" asp-action="Basket">Корзина</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Profile">Личный кабинет</a>
+                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                <input class="btn btn-outline-success me-2" type="submit" value="Выход" />
+                            </form>
+                        }
+                        else
+                        {
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Search">Поиск</a>
+                            <a class="btn btn-outline-success me-2" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+                            <a class="btn btn-outline-success me-2" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+                        }
+                    </div>
+                </div>
+                
+            </div>
+        </nav>
+    </header>
+
+    <div class="mt-5">
+        @RenderBody()
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

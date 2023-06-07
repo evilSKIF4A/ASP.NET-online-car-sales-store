@@ -1,0 +1,24 @@
+﻿.red {
+    list-style-type: none;
+}
+/* Нужно обязательно указать высоту строки и позиционирование */
+.red {
+    font-size: 18px;
+    line-height: 18px;
+    position: relative;
+}
+
+.red::before {
+    color: red;
+    /* UTF-8 escape sequence, соответствующая символу "Маркер списка" */
+    content: "\2022";
+    /* Делаем больше, чем основной текст в li */
+    font-size: 26px;
+    font-weight: 700;
+    /* Элемент вырван из потока, выравниваем отрицательным отступом */
+    left: -15px;
+    /* Высота строки и позиционирование необходимы для выравнивания по вертикали */
+    line-height: 18px;
+    position: absolute;
+    top: 0;
+}

@@ -1,0 +1,74 @@
+﻿@using AutoROFL.ViewModels
+@model BasketCarViewModel
+
+@{
+    foreach (Car car in Model.Cars)
+    {
+        <hr class="featurette-divider">
+        <table class="table mt-5">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <div>
+                            <img src="@car.Img" class="bd-placeholder-img" width="100%" height="300px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        </div>
+                    </td>
+                    <td class="col-md-4">
+                        <div style="margin-left: 200px"><h3>@car.Brand @car.Model</h3></div>
+                        <div class="mt-1 text-break"><p>@car.LongDesc</p></div>
+                    </td>
+                    <td class="col-md-2">
+                        <div class="mt-5">
+                            <h2>Цена: @car.Price</h2>
+                            <ul>
+                                @if (car.Amount != 0)
+                                {
+                                    <li class="green">Есть в наличии</li>
+                                }
+                                else
+                                {
+                                    <li class="red">Нет в наличии</li>
+                                }
+                            </ul>
+                            <div class="mt-5">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    if(car.Amount == 0)
+                                    {
+                                        <button class="btn btn-secondary" disabled="" type="submit">Добавить в корзину</button>
+                                    }
+                                    else if (Model.Baskets.Count() != 0)
+                                    {
+                                        <button class="btn btn-secondary" disabled="" type="submit">Уже есть в корзине</button>
+                                    }
+                                    else
+                                    {
+                                        <form method="post" asp-controller="Basket" asp-action="Basket">
+                                            <button class="btn btn-success" name="carId" type="submit" value="@car.Id">Добавить в корзину</button>
+                                        </form>
+                                    }
+                                }
+                                else
+                                {
+                                    <button class="btn btn-secondary" disabled="" type="submit">Нужно авторизироваться</button>
+                                }
+                                @if(Model.isOneBrand)
+                                {
+                                    <form method="post" asp-controller="Home" asp-action="ListCars">
+                                        <button class="btn btn-primary mt-1" name="brand" type="submit" value="@car.Brand">Назад</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form method="post" asp-controller="Home" asp-action="ListCars">
+                                        <button class="btn btn-primary mt-1" type="submit">Назад</button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}

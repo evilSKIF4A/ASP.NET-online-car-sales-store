@@ -1,0 +1,115 @@
+﻿@using AutoROFL.ViewModels
+@model ListCarsViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+    <style>
+        @@font-face {
+            font-family: 'FontAwesome';
+            src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), 
+            url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'), 
+            url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal
+        }
+ 
+        .glyphicon {
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
+ 
+        .glyphicon-chevron-right:before {
+            content: "\f054";
+        }
+ 
+        .glyphicon-chevron-left:before {
+            content: "\f053";
+        }
+
+        th, td {
+            border: 1px solid grey;
+        }
+    </style>
+
+
+<div>
+    <h2 style="margin-left:500px; margin-top:70px">Личный кабинет</h2>
+    <hr>
+    <div class="row" style="margin-left:50px">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="Profile" >Профиль</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="PurchaseHistory">История покупок</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="Email" >Изменить Email</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="Password" type="submit">Изменить пароль</a></li>
+                @*<li class="nav-item"><a class="nav-link" id="two-factor" href="/Identity/Account/Manage/TwoFactorAuthentication">Two-factor authentication</a></li>*@
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="User" asp-action="DeleteAccount">Удалить аккаунт</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            
+            <h3>История покупок</h3>
+
+            <div class="row">
+                <div class="col-md-11">
+                    @if (Model.Cars.Count() != 0)
+                    {
+                        foreach (Car car in Model.Cars)
+                        {
+                            <hr class="featurette-divider">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="mt-1">
+                                                <img src="@car.Img" class="bd-placeholder-img" width="100%" height="300px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                            </div>
+                                        </td>
+                                        <td class="col-md-4">
+                                            <div class="mt-1" style="margin-left: 200px"><h3>@car.Brand @car.Model</h3></div>
+                                            <div class="mt-1 text-break"><p>@car.ShortDesc</p></div>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+
+                        <div style="margin-left:380px">
+                            @if (Model.PageViewModel.HasPreviousPage)
+                            {
+                                <a asp-action="PurchaseHistory"
+                                   asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+                                   class="btn btn-outline-dark">
+                                    <i class="glyphicon glyphicon-chevron-left"></i>
+                                    Назад
+                                </a>
+                            }
+                            @if (Model.PageViewModel.HasNextPage)
+                            {
+                                <a asp-action="PurchaseHistory"
+                                   asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+                                   class="btn btn-outline-dark">
+                                    Вперед
+                                    <i class="glyphicon glyphicon-chevron-right"></i>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="margin-left:370px; margin-top:100px">
+                            <h3>Ничего не найдено</h3>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

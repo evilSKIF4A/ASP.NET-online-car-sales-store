@@ -1,0 +1,51 @@
+﻿@using AutoROFL.Models
+@model Car
+
+
+<div class="row" style="margin-left:1px; margin-top:70px">
+    <form method="post" asp-controller="AdminPanel" asp-action="LoadCar">
+        <div class="form-floating mt-1">
+        </div>
+        <div class="form-floating mt-1 d-flex">
+            <input class="form-control" type="text" id="Img" asp-for="Img" value="">
+            <label class="form-label" for="Img">URL ссылка</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="Category" asp-for="Category" value="">
+            <label class="form-label" for="Category">Категория</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="Brand" asp-for="Brand" value="">
+            <label class="form-label" for="Brand">Бренд</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="Model" asp-for="Model" value="">
+            <label class="form-label" for="Model">Модель</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="number" id="Amount" asp-for="Amount" value="0">
+            <label class="form-label" for="Amount">Количество</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="number" id="Price" asp-for="Price" value="0">
+            <label class="form-label" for="Price">Цена</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="ShortDesc" asp-for="ShortDesc" value="">
+            <label class="form-label" for="ShortDesc">Короткое описание</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" type="text" id="LongDesc" asp-for="LongDesc" value="">
+            <label class="form-label" for="LongDesc">Длинное описание</label>
+        </div>
+        <div class="form-floating mt-1 d-flex">
+            <p>На главную страницу?  </p>
+            <p style="margin-left:5px"> Да</p>
+            <input class="me-1" type="radio" value="True"  asp-for="isFavorit" style="margin-left:5px">
+            <p style="margin-left:5px">Нет</p>
+            <input class="me-1" type="radio" value="False" checked="checked" asp-for="isFavorit" style="margin-left:5px">
+        </div>
+        <button type="submit" style="margin-left:600px" class="btn btn-lg btn-primary mt-1">Сохранить</button>
+        <br />
+    </form>
+</div>

@@ -1,0 +1,92 @@
+﻿@using AutoROFL.ViewModels
+@model List<ProfileViewModel>
+
+
+<div>
+    <h2 style="margin-left:600px; margin-top:70px">Админ панель</h2>
+    <hr>
+    <div class="row" style="margin-left:50px">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="AdminPanel" asp-action="AdminPanelUsers">Пользователи</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="AdminPanel" asp-action="AdminPanelCar">Машины</a></li>
+                <li class="nav-item mt-1"><a class="btn btn-primary" asp-controller="AdminPanel" asp-action="AdminPanelRemoteAccount">Удаленные аккаунты</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <h3 style="margin-left:150px">Пользователи</h3>
+            <div class="d-flex mt-2">
+                <form method="post" asp-controller="AdminPanel" asp-action="AdminPanelUsers">
+                    <input type="text" name="FName" placeholder="Поиск по фамилии..." />
+                    <input type="text" name="Email" placeholder="Поиск по почте..." />
+                    <input type="text" name="PhoneNumber" placeholder="Поиск по номеру..." />
+                    <input type="submit" value="Поиск" />
+                </form>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>Год рождения</th>
+                        <th>Адрес</th>
+                        <th>Email</th>
+                        <th>Номер телефона</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.User.FName</td>
+                            <td>@user.User.SName</td>
+                            <td>@user.User.MName</td>
+                            <td>@user.User.Year.ToShortDateString()</td>
+                            <td>@user.User.Adress</td>
+                            <td>@user.User.UserName</td>
+                            @if(!String.IsNullOrEmpty(user.User.PhoneNumber))
+                            {
+                                <td>@user.User.PhoneNumber</td>
+                            }
+                            else
+                            {
+                                <td>Не указан</td>
+                            }
+                            <td class="col-md-4">
+                                <div class="d-flex">
+                                    <form method="post" asp-controller="AdminPanel" asp-action="AdminRights">
+                                        @if(user.UserRole == "1")
+                                        {
+                                            <button class="btn btn-sm btn-primary me-1" name="userId" value="@user.User.Id">Дать админку</button>
+                                        }
+                                        else
+                                        {
+                                            if(User.Identity.Name == user.User.UserName)
+                                            {
+                                                <button class="btn btn-sm btn-secondary me-1" disabled="" name="userId" value="@user.User.Id">Забрать админку</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-sm btn-primary me-1" name="userId" value="@user.User.Id">Забрать админку</button>
+                                            }
+                                        }
+                                    </form>
+                                    <form asp-controller="AdminPanel" asp-action="AdminPanelPurchaseHistory" method="post">
+                                        <button type="submit" class="btn btn-sm btn-primary me-1" name="userId" value="@user.User.Id">Покупки</button>
+                                    </form>
+                                    <form asp-controller="AdminPanel" asp-action="AccountDelete" method="post">
+                                        <button type="submit" class="btn btn-sm btn-danger me-1" name="userId" value="@user.User.Id">Удалить</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
